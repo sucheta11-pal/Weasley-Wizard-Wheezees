@@ -1,7 +1,7 @@
 const Tasks = require('../models/todo');
 
 module.exports.addition = (req,res)=>{
-    console.log('hello')
+    console.log('hello, mucho gusto')
     console.log(req.body);
     
     Tasks.create({
