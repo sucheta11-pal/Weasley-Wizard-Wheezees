@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        <%= title%>
+    </title>
+    <link href="http://fonts.cdnfonts.com/css/harry-potter" rel="stylesheet">
+    <link rel="stylesheet" href="/css/style.css">
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+</head>
+<body>
+    <head >
+        <h1 id="heading">Guide & Risk Assesment</h1>
+    </head>
+    <main>
+        
+        <form method="post" action="/add">
+            <div id="description">
+                <div class="heading-2">
+                    DESCRIPTION
+                </div>
+                <div>
+                    <input type="text" name="desc" id="desc" required placeholder="What do you need to do?">
+                </div>
+            </div>
+            <div id="container">
+                <div id ="item-1" class="item">
+                    <div class="heading-2">
+                        CATEGORY
+                    </div>
+                    <div>
+                        <select name="catagory" id="work-type">
+                            <option value="none" selected disabled hidden>Select a Category</option>
+                            <option value="School">School</option>
+                            <option value="Personal">Personal</option>
+                            <option value="Work">Work</option>
+                            <option value="College">College</option>
+                        </select>
+                    </div>
+                </div>
+                <div id ="item-2" class="item">
+                    <div class="heading-2">
+                        DUE DATE
+                    </div>
+                    <div>
+                        <input type="date" name="date" id="due-date" min="2022-03-13" required>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="tasks-btn-container">
+                <button type="submit"id="add" class="btn">
+                    
+                        <i class="fa fa-plus"></i>
+                        <span>Add Task</span>
+                   
+                </button>  
+            </div> 
+        </form>
+
+        <div id="list-container">
+            
+            <ul id="list">
+                <% for(let i of tasks_list){%>
+                    <li class="contact">
+                        <form id="check" action="/toggle?id=<%= i._id%>&op=<%= i.selection%>" method="post">
+                            <% let tick = i.selection ? "checked" : "" %>
+                           
+                            <input type="checkbox" class="custom-checkbox" onclick="toggle(`<%=i._id%>`,`<%=i.selection%>`);" name="selection" <%= tick%> >
+                           
+                                <div class="details">
+                                    <p class="style-1"><%= i.desc.toUpperCase()%></p>
+                                    <p class="style-3"><%= i.date%></p>
+        
+                                </div>
+    
+                                    <% if(i.catagory!=='0'){ %>
+                                    <div class="details down">
+                                        
+                                            <p class="bttn" ><%= i.catagory%></p>
+                                        
+                                        
+                                    </div>
+                                  <% } else{ %>  
+                                    <div class="details down">
+                                        
+                                    </div>
+                                    
+                                    <% } %>
+                            
+                            
+                            <!-- <button type="submit" class="btn">
+                                <% let status = i.selection ? "Complete" : "" %>
+                                <%= status%>
+                            </button> -->
+                        </form> 
+                    </li>
+                <%}%>
+    
+            </ul>
+        
+        </div>
+
+        <div class="tasks-btn-container">
+            <form action="/delete-task">
+                <button type="submit"id="delete" class="btn">
+                    <i class="fa fa-trash"></i>
+                    <span>Delete Task</span>
+                </button> 
+            </form>
+        </div>
+
+        
+    </main>
+    <script src="/js/toggle.js"></script>
+    <script src="/js/colour_change.js"></script>
+</body>
+</html>
